@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jireh Automations — AI-Powered Business Intelligence</title>
+    <meta name="description" content="We help service businesses automate operations, score leads, and make smarter decisions with AI. Free AI audit for qualifying businesses.">
+    <style>
+        :root {
+            --primary: #0A1628;
+            --accent: #2563EB;
+            --accent-light: #3B82F6;
+            --gold: #F59E0B;
+            --text: #E2E8F0;
+            --text-muted: #94A3B8;
+            --surface: #0F2035;
+            --surface-light: #162A46;
+            --border: #1E3A5F;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span { color: var(--accent-light); }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--white); }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: var(--white) !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--accent-light) !important; }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content { max-width: 800px; position: relative; z-index: 1; }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            color: var(--white);
+        }
+
+        h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .hero-cta:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.3);
+        }
+
+        .hero-proof {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .proof-item {
+            text-align: center;
+        }
+
+        .proof-number {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .proof-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-light);
+            margin-bottom: 0.75rem;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .section-sub {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== SERVICES GRID ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== PROCESS ===== */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 0;
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-flex;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--surface-light);
+            border: 2px solid var(--accent);
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            text-align: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* ===== CONTACT FORM ===== */
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea { resize: vertical; min-height: 100px; }
+
+        .form-group select option { background: var(--surface); }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-light);
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a { color: var(--accent-light); text-decoration: none; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav { padding: 0.75rem 1rem; }
+            .nav-links { gap: 1rem; }
+            .nav-links a:not(.nav-cta) { display: none; }
+            .hero { padding: 5rem 1.5rem 3rem; }
+            .hero-proof { gap: 2rem; }
+            section { padding: 3rem 1.5rem; }
+            .cta-section { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="logo">
+            <img src="assets/logo-icon.png" alt="Jireh Automations">
+            <span class="logo-text">Jireh <span>Automations</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#process">Process</a>
+            <a href="#contact" class="nav-cta">Free AI Audit</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">AI-Powered Business Intelligence</div>
+            <h1>Stop Losing Money to <span class="highlight">Manual Operations</span></h1>
+            <p class="hero-sub">
+                We help service businesses automate lead scoring, client intake, and operations —
+                so you close more deals and waste fewer hours.
+            </p>
+            <a href="#contact" class="hero-cta">Get Your Free AI Audit →</a>
+            <div class="hero-proof">
+                <div class="proof-item">
+                    <div class="proof-number">20+</div>
+                    <div class="proof-label">Hours Saved / Week</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">3x</div>
+                    <div class="proof-label">Lead Conversion</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">$0</div>
+                    <div class="proof-label">First Audit Cost</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="section-label">What We Do</div>
+        <h2>AI Solutions for Service Businesses</h2>
+        <p class="section-sub">From HVAC to renovations to professional services — we build the systems that let you focus on what you're best at.</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3>Intelligent Lead Scoring</h3>
+                <p>Our AI engine analyzes property data, permit history, and market signals to rank every lead as Gold, Silver, or Noise — before you waste a single hour.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Workflow Automation</h3>
+                <p>Connect your CRM, email, scheduling, and follow-ups into one automated pipeline. No more missed callbacks. No more manual data entry.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>AI Business Audit</h3>
+                <p>We analyze your current operations and identify exactly where AI can save time and increase revenue. Clear ROI projections, no guesswork.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>AI Voice &amp; Chat Agents</h3>
+                <p>Custom AI assistants that handle client inquiries, book appointments, and qualify leads 24/7 — so your team only talks to serious buyers.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔗</div>
+                <h3>System Integration</h3>
+                <p>Service Titan, Salesforce, Slack, Google Workspace — we wire everything together so data flows automatically between your tools.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>Decision Intelligence</h3>
+                <p>Real-time dashboards and AI-powered insights that tell you where to invest your time and money for maximum growth.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process">
+        <div class="section-label">How It Works</div>
+        <h2>From Audit to Automated in 4 Steps</h2>
+        <p class="section-sub">No long contracts. No enterprise pricing. Just measurable results.</p>
+
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Free AI Audit</h3>
+                <p>We analyze your current operations, tools, and workflows. You get a clear report showing exactly where AI creates value.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Custom Blueprint</h3>
+                <p>We design an automation strategy tailored to your business — with ROI projections and a realistic timeline.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Build &amp; Deploy</h3>
+                <p>We build your AI systems using battle-tested tools (n8n, Make, custom APIs) and deploy them into your existing workflow.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Optimize &amp; Scale</h3>
+                <p>We monitor performance, fine-tune the system, and scale what works. Your data compounds and your system gets smarter.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA + CONTACT -->
+    <section id="contact">
+        <div class="cta-section">
+            <div class="section-label">Get Started</div>
+            <h2>Ready to See What AI Can Do for Your Business?</h2>
+            <p>Book your free AI audit. We'll show you exactly where you're leaving money on the table — and how to fix it.</p>
+
+            <form class="contact-form" action="https://formspree.io/f/placeholder" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="business">Business Type</label>
+                    <select id="business" name="business">
+                        <option value="">Select your industry</option>
+                        <option value="hvac">HVAC / Home Services</option>
+                        <option value="renovation">Renovation / Remodeling</option>
+                        <option value="solar">Solar / Energy</option>
+                        <option value="roofing">Roofing / Exteriors</option>
+                        <option value="financial">Financial Services</option>
+                        <option value="professional">Professional Services</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">What's your biggest operational bottleneck?</label>
+                    <textarea id="message" name="message" placeholder="e.g., We spend 10 hours/week on manual lead follow-up..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Request Free AI Audit →</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Jireh Automations. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="mailto:info@mysklz.com">info@mysklz.com</a> · Portland, OR
+        </p>
+    </footer>
+
+</body>
+</html>
