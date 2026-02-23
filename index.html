@@ -169,6 +169,10 @@
             display: inline-block;
             opacity: 0;
             transform: translateY(50px) rotateX(-45deg);
+            animation: charFallback 0.6s 3.5s forwards;
+        }
+        @keyframes charFallback {
+            to { opacity: 1; transform: translateY(0) rotateX(0); }
         }
 
         /* ===== LOADING SCREEN ===== */
@@ -278,6 +282,17 @@
             height: 40px;
             background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent);
         }
+
+        /* ===== CRITICAL LAYOUT FALLBACKS ===== */
+        .hero-headline .word { display: block; }
+        @media (max-width: 767px) {
+            .desktop-nav { display: none !important; }
+            #hamburger { display: flex !important; }
+        }
+        @media (min-width: 768px) {
+            .desktop-nav { display: flex !important; align-items: center; gap: 2rem; }
+            #hamburger { display: none !important; }
+        }
     </style>
 </head>
 <body class="font-sans text-gray-200 overflow-x-hidden">
@@ -301,7 +316,7 @@
             </a>
 
             <!-- Desktop Nav -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="desktop-nav hidden md:flex items-center gap-8">
                 <a href="#industries" class="text-gray-400 hover:text-white text-sm font-medium transition-colors duration-200">Industries</a>
                 <a href="#process" class="text-gray-400 hover:text-white text-sm font-medium transition-colors duration-200">Process</a>
                 <a href="#features" class="text-gray-400 hover:text-white text-sm font-medium transition-colors duration-200">Features</a>
@@ -318,8 +333,8 @@
 
         <!-- ========== MOBILE MENU ========== -->
         <div id="mobile-menu" class="fixed inset-0 z-[45] pointer-events-none">
-            <div id="menu-backdrop" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300" style="backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"></div>
-            <div id="menu-panel" class="absolute top-0 right-0 h-full w-[280px] transform translate-x-full transition-transform duration-300 ease-out flex flex-col items-center justify-center gap-8" style="background:rgba(10,22,40,0.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-left:1px solid rgba(255,255,255,0.08);">
+            <div id="menu-backdrop" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300" style="opacity:0;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"></div>
+            <div id="menu-panel" class="absolute top-0 right-0 h-full w-[280px] transform translate-x-full transition-transform duration-300 ease-out flex flex-col items-center justify-center gap-8" style="transform:translateX(100%);background:rgba(10,22,40,0.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-left:1px solid rgba(255,255,255,0.08);">
                 <a href="#" class="text-white text-lg font-medium" data-mobile-nav>Home</a>
                 <a href="#industries" class="text-gray-400 text-lg font-medium hover:text-white transition-colors" data-mobile-nav>Industries</a>
                 <a href="#process" class="text-gray-400 text-lg font-medium hover:text-white transition-colors" data-mobile-nav>Process</a>
@@ -344,9 +359,9 @@
 
                     <!-- Headline -->
                     <h1 class="hero-headline text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
-                        <span class="word block text-white">Automate Your</span>
+                        <span class="word block"><span class="text-white">Automate Your</span></span>
                         <span class="word block"><span class="text-gradient">Business</span> <span class="text-white">in</span></span>
-                        <span class="word block text-white">30 Days or Less</span>
+                        <span class="word block"><span class="text-white">30 Days or Less</span></span>
                     </h1>
 
                     <!-- Subheadline -->
@@ -1078,8 +1093,8 @@
         function openMenu() {
             menuOpen = true;
             mobileMenu.classList.remove('pointer-events-none');
-            menuBackdrop.classList.add('opacity-100');
-            menuPanel.classList.remove('translate-x-full');
+            menuBackdrop.style.opacity = '1';
+            menuPanel.style.transform = 'translateX(0)';
             document.body.style.overflow = 'hidden';
             hamburger.querySelector('span:nth-child(1)').style.transform = 'translateY(7px) rotate(45deg)';
             hamburger.querySelector('span:nth-child(2)').style.opacity = '0';
@@ -1087,8 +1102,8 @@
         }
         function closeMenu() {
             menuOpen = false;
-            menuBackdrop.classList.remove('opacity-100');
-            menuPanel.classList.add('translate-x-full');
+            menuBackdrop.style.opacity = '0';
+            menuPanel.style.transform = 'translateX(100%)';
             document.body.style.overflow = '';
             hamburger.querySelector('span:nth-child(1)').style.transform = '';
             hamburger.querySelector('span:nth-child(2)').style.opacity = '';
