@@ -363,7 +363,7 @@
                     </div>
 
                     <!-- Headline -->
-                    <h1 class="hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight mb-6">
+                    <h1 class="hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[1.1] tracking-tight mb-6">
                         <span class="word block"><span class="text-white">Automate Your</span></span>
                         <span class="word block"><span class="text-gradient">Business</span> <span class="text-white">in</span></span>
                         <span class="word block"><span class="text-white">30 Days or Less</span></span>
@@ -831,7 +831,7 @@
                 depthWrite: false
             });
             var torusMesh = new THREE.Mesh(torusGeometry, iridescentMaterial);
-            torusMesh.position.set(3.5, 0.5, -1.5);
+            torusMesh.position.set(4.2, 0.3, -2);
             scene.add(torusMesh);
 
             // ----- FLOATING WIREFRAME SHAPES -----
@@ -883,13 +883,16 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 if (window.innerWidth < 768) {
                     torusMesh.position.set(0, 1, -3);
-                    torusMesh.scale.setScalar(0.6);
+                    torusMesh.scale.setScalar(0.5);
                 } else if (window.innerWidth < 1024) {
-                    torusMesh.position.set(2, 0.5, -2);
+                    torusMesh.position.set(2.5, 0.5, -2);
+                    torusMesh.scale.setScalar(0.7);
+                } else if (window.innerWidth < 1440) {
+                    torusMesh.position.set(4, 0.3, -2);
                     torusMesh.scale.setScalar(0.8);
                 } else {
-                    torusMesh.position.set(3.5, 0.5, -1.5);
-                    torusMesh.scale.setScalar(1);
+                    torusMesh.position.set(4.2, 0.3, -2);
+                    torusMesh.scale.setScalar(0.9);
                 }
             }
             window.addEventListener('resize', onResize);
