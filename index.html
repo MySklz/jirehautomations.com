@@ -1019,18 +1019,31 @@
                     var text = span.textContent;
                     var isGradient = span.classList.contains('text-gradient');
                     var frag = document.createDocumentFragment();
-                    for (var c = 0; c < text.length; c++) {
-                        var charSpan = document.createElement('span');
-                        charSpan.textContent = text[c] === ' ' ? '\u00A0' : text[c];
-                        charSpan.className = 'char';
-                        if (isGradient) {
-                            charSpan.style.background = 'linear-gradient(135deg, #3B82F6, #60A5FA, #93C5FD)';
-                            charSpan.style.webkitBackgroundClip = 'text';
-                            charSpan.style.webkitTextFillColor = 'transparent';
-                            charSpan.style.backgroundClip = 'text';
+                    // Split by words to prevent mid-word breaks
+                    var textWords = text.split(' ');
+                    textWords.forEach(function(tw, twi) {
+                        if (twi > 0) {
+                            // Add a regular space between words (allows line break here)
+                            frag.appendChild(document.createTextNode(' '));
                         }
-                        frag.appendChild(charSpan);
-                    }
+                        // Wrap each word's chars in a nowrap container
+                        var wordWrap = document.createElement('span');
+                        wordWrap.style.whiteSpace = 'nowrap';
+                        wordWrap.style.display = 'inline';
+                        for (var c = 0; c < tw.length; c++) {
+                            var charSpan = document.createElement('span');
+                            charSpan.textContent = tw[c];
+                            charSpan.className = 'char';
+                            if (isGradient) {
+                                charSpan.style.background = 'linear-gradient(135deg, #3B82F6, #60A5FA, #93C5FD)';
+                                charSpan.style.webkitBackgroundClip = 'text';
+                                charSpan.style.webkitTextFillColor = 'transparent';
+                                charSpan.style.backgroundClip = 'text';
+                            }
+                            wordWrap.appendChild(charSpan);
+                        }
+                        frag.appendChild(wordWrap);
+                    });
                     span.textContent = '';
                     span.appendChild(frag);
                     span.style.display = 'inline';
