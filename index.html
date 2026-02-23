@@ -284,7 +284,12 @@
         }
 
         /* ===== CRITICAL LAYOUT FALLBACKS ===== */
-        .hero-headline .word { display: block; }
+        .hero-headline .word { display: block; overflow: hidden; }
+        .hero-headline { overflow-wrap: break-word; word-wrap: break-word; }
+        @media (max-width: 640px) {
+            .hero-headline { font-size: 1.75rem !important; line-height: 1.15 !important; }
+            .hero-headline .char { transform: none; opacity: 1; }
+        }
         @media (max-width: 767px) {
             .desktop-nav { display: none !important; }
             #hamburger { display: flex !important; }
@@ -358,7 +363,7 @@
                     </div>
 
                     <!-- Headline -->
-                    <h1 class="hero-headline text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
+                    <h1 class="hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight mb-6">
                         <span class="word block"><span class="text-white">Automate Your</span></span>
                         <span class="word block"><span class="text-gradient">Business</span> <span class="text-white">in</span></span>
                         <span class="word block"><span class="text-white">30 Days or Less</span></span>
@@ -622,7 +627,7 @@
                     </div>
 
                     <!-- Contact Form -->
-                    <form id="contactForm" action="https://formsubmit.co/rj@mysklz.com" method="POST" class="space-y-5">
+                    <form id="contactForm" action="https://formsubmit.co/info@jirehautomations.com" method="POST" class="space-y-5">
                         <input type="hidden" name="_subject" value="New AI Audit Request — JIREH Automations">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_template" value="table">
@@ -681,7 +686,7 @@
                     <span class="text-gray-500 text-sm">&copy; 2026 JIREH Automations. All rights reserved.</span>
                 </div>
                 <div class="flex items-center gap-6 text-sm">
-                    <a href="mailto:info@mysklz.com" class="text-gray-500 hover:text-white transition-colors">info@mysklz.com</a>
+                    <a href="mailto:info@jirehautomations.com" class="text-gray-500 hover:text-white transition-colors">info@jirehautomations.com</a>
                     <span class="text-gray-700">·</span>
                     <span class="text-gray-500">Portland, OR</span>
                 </div>
@@ -710,7 +715,7 @@
     </div>
 
     <!-- ==================== CHAT BUBBLE ==================== -->
-    <div id="chatBubble" class="fixed bottom-6 right-6 z-50 cursor-pointer" onclick="window.open('mailto:info@mysklz.com','_blank')">
+    <div id="chatBubble" class="fixed bottom-6 right-6 z-50 cursor-pointer" onclick="window.open('mailto:info@jirehautomations.com','_blank')">
         <div class="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110" style="background:linear-gradient(135deg,#2563EB,#3B82F6);box-shadow:0 4px 20px rgba(37,99,235,0.4);animation:glowPulse 3s ease-in-out infinite;">
             <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
         </div>
